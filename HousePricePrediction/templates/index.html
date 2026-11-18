@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>House Price Prediction System</h1>
+    <p>Enter your house details to estimate its price.</p>
+
+    <form action="/predict" method="POST">
+
+        <label>Area (Square Feet)</label>
+        <input type="number" name="area" min="1" required>
+
+        <label>Bedrooms</label>
+        <input type="number" name="bedrooms" min="1" max="20" required>
+
+        <label>Bathrooms</label>
+        <input type="number" name="bathrooms" min="1" max="20" required>
+
+        <label>House Age (Years)</label>
+        <input type="number" name="age" min="0" max="200" required>
+
+        <label>Location</label>
+        <select name="location" required>
+            <option value="Delhi">Delhi</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Panipat">Panipat</option>
+            <option value="Ambala">Ambala</option>
+        </select>
+
+        <button type="submit">Predict House Price</button>
+
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            <h2>Estimated House Price</h2>
+            <h1>₹ {{ "{:,.2f}".format(prediction) }}</h1>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
